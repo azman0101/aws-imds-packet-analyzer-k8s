@@ -19,9 +19,9 @@ jobs:
     strategy:
       matrix:
         target:
-          - name: dockerfile
-            file: Dockerfile
-            tag: latest
+          # - name: dockerfile
+          #   file: Dockerfile
+          #   tag: latest
           - name: dockerfile-test
             file: Dockerfile.test
             tag: test
