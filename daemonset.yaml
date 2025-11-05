@@ -21,8 +21,8 @@ spec:
       - operator: "Exists"
       containers:
       - name: analyzer
-        # Replace docker.io/azman0101 with your registry (e.g. ghcr.io/org/image or registry.example.com/repo)
-        image: "docker.io/azman0101/aws-imds-packet-analyzer:latest"
+        # Replace ghcr.io/azman0101 with your registry (e.g. ghcr.io/org/image or registry.example.com/repo)
+        image: "ghcr.io/azman0101/aws-imds-packet-analyzer:latest"
         imagePullPolicy: IfNotPresent
         securityContext:
           privileged: true
