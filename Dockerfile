@@ -1,5 +1,4 @@
 FROM ubuntu:22.04
-FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -17,12 +16,10 @@ WORKDIR /home/ubuntu
 # Build and install BCC
 RUN git clone https://github.com/iovisor/bcc.git /home/ubuntu/bcc && \
     mkdir -p /home/ubuntu/bcc/build && cd /home/ubuntu/bcc/build && \
-    cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DPYTHON_CMD=python3 && \
+    # configure and build bcc; provide PYTHON_CMD so CMake builds python bindings
+    cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DPYTHON_CMD=python3 -DBUILD_TESTS=OFF && \
     cmake --build . --parallel "$(nproc)" && \
     cmake --install . && \
-    # Python bindings (install via setup.py for reliability)
-    cd /home/ubuntu/bcc/src/python && \
-    python3 setup.py build && python3 setup.py install && \
     # cleanup source to reduce image size
     cd /home/ubuntu && rm -rf /home/ubuntu/bcc
 
