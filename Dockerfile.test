@@ -33,4 +33,4 @@ ENV LD_PRELOAD=/usr/lib/libbcc.so.0
 ENV PYTHONPATH=/usr/lib/python3/dist-packages
 
 WORKDIR /home/ubuntu/aws-imds-packet-analyzer
-CMD ["python3", "src/imds_snoop.py"]
+CMD ["python3", "/home/ubuntu/aws-imds-packet-analyzer/src/imds_snoop.py"]
