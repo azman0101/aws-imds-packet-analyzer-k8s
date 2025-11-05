@@ -25,7 +25,7 @@ spec:
       - name: analyzer
         # Replace ghcr.io/azman0101 with your registry (e.g. ghcr.io/org/image or registry.example.com/repo)
         image: "ghcr.io/azman0101/azman0101/aws-imds-packet-analyzer-k8s:test"
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         securityContext:
           privileged: true
         volumeMounts:
