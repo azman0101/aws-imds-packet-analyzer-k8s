@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: aws-imds-packet-analyzer
-  namespace: monitoring
+  namespace: eric
   labels:
     app: aws-imds-packet-analyzer
 spec:
@@ -19,10 +19,12 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       tolerations:
       - operator: "Exists"
+      imagePullSecrets:
+      - name: ghcr-pull-secret
       containers:
       - name: analyzer
         # Replace ghcr.io/azman0101 with your registry (e.g. ghcr.io/org/image or registry.example.com/repo)
-        image: "ghcr.io/azman0101/aws-imds-packet-analyzer:latest"
+        image: "ghcr.io/azman0101/azman0101/aws-imds-packet-analyzer-k8s:test"
         imagePullPolicy: IfNotPresent
         securityContext:
           privileged: true
@@ -60,10 +62,10 @@ spec:
         hostPath:
           path: /proc
 ---
-# Optional: create the namespace if it does not exist
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: monitoring
-  labels:
-    name: monitoring
+# # Optional: create the namespace if it does not exist
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: eric
+#   labels:
+#     name: eric
