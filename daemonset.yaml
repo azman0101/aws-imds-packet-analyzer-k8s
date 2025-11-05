@@ -28,6 +28,9 @@ spec:
         imagePullPolicy: Always
         securityContext:
           privileged: true
+        env:
+        - name: IMDS_LOG_LEVEL
+          value: "DEBUG"
         volumeMounts:
         - name: sys
           mountPath: /sys

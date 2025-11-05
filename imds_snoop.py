@@ -200,9 +200,14 @@ if(__name__ == "__main__"):
     print("Logging to /var/log/imds/imds-trace.log")
     logger = logging.getLogger()
     c_handler = RotatingFileHandler('/var/log/imds/imds-trace.log', 'a', 1048576, 5, 'UTF-8')
-    logger.setLevel(logging.INFO)
+    # Default level, can be overridden by IMDS_LOG_LEVEL env var
+    env_level = os.getenv('IMDS_LOG_LEVEL', 'INFO').upper()
+    level = getattr(logging, env_level, logging.INFO)
+    logger.setLevel(level)
     c_format = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s')
     c_handler.setFormatter(c_format)
+    # ensure handler level matches the configured global level
+    c_handler.setLevel(level)
     logger.addHandler(c_handler)
 
   # initialize BPF
