@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-IMAGE="${1:-docker.io/azman0101/aws-imds-packet-analyzer:latest}"
+IMAGE="${1:-ghcr.io/azman0101/aws-imds-packet-analyzer:latest}"
 
 echo "Building image: $IMAGE"
 docker build -t "$IMAGE" .

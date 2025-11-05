@@ -10,17 +10,17 @@ Files
 
 Build & push
 
-1. Edit the image name in `daemonset.yaml` (replace `docker.io/azman0101` with your registry URL).
+1. Edit the image name in `daemonset.yaml` (replace `ghcr.io/azman0101` with your registry URL).
 2. Build and tag the image locally:
 
 ```bash
-./build.sh ghcr.io/myorg/aws-imds-packet-analyzer:latest
+./build.sh ghcr.io/azman0101/aws-imds-packet-analyzer:latest
 ```
 
 3. Push to your registry:
 
 ```bash
-docker push ghcr.io/myorg/aws-imds-packet-analyzer:latest
+docker push ghcr.io/azman0101/aws-imds-packet-analyzer:latest
 ```
 
 Deploy to Kubernetes
