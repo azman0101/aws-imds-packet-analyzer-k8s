@@ -159,7 +159,9 @@ def print_imds_event(cpu, data, size):
     log_msg = recurseHideToken(log_msg)
     # We only want to output IMDSv1 usage. Skip IMDSv2 events entirely.
     if is_v2:
-        # Silently ignore IMDSv2 events (do not log or print)
+        # Log IMDSv2 events at DEBUG level (do not print to stdout), then ignore
+        if logger:
+            logger.debug(log_msg)
         return
 
     # At this point it's IMDSv1 (or unclassified). Handle logging/printing as before.
