@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: aws-imds-packet-analyzer
+  namespace: monitoring
+  labels:
+    app: aws-imds-packet-analyzer
+spec:
+  selector:
+    matchLabels:
+      app: aws-imds-packet-analyzer
+  template:
+    metadata:
+      labels:
+        app: aws-imds-packet-analyzer
+    spec:
+      hostNetwork: true
+      hostPID: true
+      dnsPolicy: ClusterFirstWithHostNet
+      tolerations:
+      - operator: "Exists"
+      containers:
+      - name: analyzer
+        # Replace docker.io/azman0101 with your registry (e.g. ghcr.io/org/image or registry.example.com/repo)
+        image: "docker.io/azman0101/aws-imds-packet-analyzer:latest"
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: sys
+          mountPath: /sys
+          readOnly: true
+        - name: src
+          mountPath: /usr/src
+          readOnly: true
+        - name: modules
+          mountPath: /lib/modules
+          readOnly: true
+        - name: proc
+          mountPath: /proc
+          readOnly: true
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+      volumes:
+      - name: sys
+        hostPath:
+          path: /sys
+      - name: src
+        hostPath:
+          path: /usr/src
+      - name: modules
+        hostPath:
+          path: /lib/modules
+      - name: proc
+        hostPath:
+          path: /proc
+---
+# Optional: create the namespace if it does not exist
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    name: monitoring
